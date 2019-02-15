@@ -1,2 +1,2 @@
 # salmoncookies
-lab 6
+cookie-stand
