@@ -1,0 +1,24 @@
+body {
+  background:white;
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+  text-align: left;
+  width: 80%;
+  margin-left: 10%;
+}
+/* link colors */
+a {
+  color:red;
+  text-decoration: none;
+}
+a:visited{
+  color:black;
+}
+body a:hover{
+  color: blue;
+  text-decoration: overline;
+  background-color: red;
+}
+#salmon{
+  width: 50%;
+}

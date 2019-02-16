@@ -51,8 +51,10 @@ pike.cookiesSold = multiply(pike.avgCookies,pike.customer);
 console.log(pike);
 
 
-  for (var i = 0; i < hours.length; i++){
-    var liEl = document.createElement('li');
+for (var i = 0; i < hours.length; i++){
+    
+  
+  var liEl = document.createElement('li');
     liEl.textContent = `${hours[i]}: ${this.cookiesSold[i]} cookies`;
 
     pikeUl.appendChild(liEl);
@@ -65,6 +67,23 @@ var seatac ={
   avgCookies: 1.2,
 
   cookiesSold: 
+
+function pikepplAllDay(){
+  var customers=[]
+    for (var i = 0; i < hours.length; i++) {
+    customers.push(numPpl(23,65));
+  }return customers;
+};
+
+  for (var i=0; i<hours.length; i++) {
+    function pikecookiesAllDay(){
+    var customers=pikepplAllDay();
+    var cookies=[]
+    cookies.push(customers[i]*=6.3);
+    }
+  return cookies;
+  };
+
   function getRandomInt(min,max){
     min = Math.ceil(3);
     max = Math.floor(24);
@@ -109,3 +128,21 @@ var seaCtr ={
 render();
 seatac.render();
 seaCtr.render();
+
+var pike ={
+  name: '1st and Pike',
+  min: 23,
+  max: 65,
+  avgCookies: 6.3,
+  customers: pikepplAllDay(),
+  cookies: pikecookiesAllDay(),
+
+  render: function(){
+    for (var i = 0; i < hours.length; i++){
+    function pplAllDay(){
+      var customers=[]
+      customers.push(numPpl());
+      }return customers;
+    }
+  }
+};
