@@ -113,7 +113,13 @@ function renderSeatac(){
   seatacUl.appendChild(tot);
 };
 
+console.log(seatac.customers);
+console.log(seatac.cookies);
+
+
+
 // SEATTLE CENTER... YOUR TURN :(
+
 function seactrpplAllDay(){
   var customers=[]
     for (var i = 0; i < hours.length; i++) {
@@ -149,6 +155,10 @@ function renderSeaCtr(){
   tot.textContent = `Total: ${Math.round(arrSum(seaCtr.cookies))} cookies`;
   centerUl.appendChild(tot);
 };
+
+console.log(seaCtr.customers);
+console.log(seaCtr.cookies);
+
 
 // Cap Hill
 
@@ -189,6 +199,8 @@ function renderCapHill(){
   capHillUl.appendChild(tot);
 };
 
+console.log(capHill.customers);
+console.log(capHill.cookies);
 
 // Alki
 
@@ -228,6 +240,11 @@ function renderAlki(){
   tot.textContent = `Total: ${Math.round(arrSum(alki.cookies))} cookies`;
   alkiUl.appendChild(tot);
 };
+
+console.log(alki.customers);
+console.log(alki.cookies);
+
+// showup in html
 renderPike();
 renderSeatac();
 renderSeaCtr();
