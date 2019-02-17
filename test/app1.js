@@ -52,7 +52,6 @@ var pike ={
       console.log('this is a cookies per hour sale '+cookiesPerHour);
       this.cookiesSold = cookiesPerHour;
       console.log('this is cookies sold per hour '+ this.cookiesSold);
-      
       var liEl = document.createElement('li');
       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
       pikeUl.appendChild(liEl);
