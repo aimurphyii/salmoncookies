@@ -36,6 +36,7 @@ var pike ={
   avgCookies: 6.3,
   customer: '',
   cookiesSold: '',
+  stats:[],
   render: function(){
     for (var i = 0; i < hours.length; i++){
       var min = this.min;
@@ -50,12 +51,20 @@ var pike ={
       console.log('avgCookies = ' + avgCookies);
       var cookiesPerHour = this.customer*avgCookies;
       console.log('this is a cookies per hour sale '+cookiesPerHour);
+      this.stats.push(Math.round(cookiesPerHour));
       this.cookiesSold = cookiesPerHour;
       console.log('this is cookies sold per hour '+ this.cookiesSold);
       var liEl = document.createElement('li');
       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
       pikeUl.appendChild(liEl);
   }
+  var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+  console.log('reduce gets '+sum);
+  var tot = document.createElement('li');
+  tot.textContent = `Total: ${Math.round(sum)} cookies`;
+  pikeUl.appendChild(tot);
+
+  console.log('the total cookies per hour array for ' +name+' is '+this.stats);
 },
 }
 // console.log('this is pike.customer '+pike.customer);
@@ -68,6 +77,7 @@ var seaTac ={
   avgCookies: 1.2,
   customer: '',
   cookiesSold: '',
+  stats:[],
   render: function(){
     for (var i = 0; i < hours.length; i++){
       var min = this.min;
@@ -82,15 +92,22 @@ var seaTac ={
       console.log('avgCookies = ' + avgCookies);
       var cookiesPerHour = this.customer*avgCookies;
       console.log('this is a cookies per hour sale '+cookiesPerHour);
+      this.stats.push(Math.round(cookiesPerHour));
       this.cookiesSold = cookiesPerHour;
       console.log('this is cookies sold per hour '+ this.cookiesSold);
       var liEl = document.createElement('li');
       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
       seaTacUl.appendChild(liEl);
   }
+  var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+  console.log('seatac reduce gets '+sum);
+  var tot = document.createElement('li');
+  tot.textContent = `Total: ${Math.round(sum)} cookies`;
+  seaTacUl.appendChild(tot);
+
+  console.log('the total cookies per hour array for ' +name+' is '+this.stats);
 },
 }
-
 
 var seaCtr ={
   name: 'Seattle Center',
@@ -99,6 +116,7 @@ var seaCtr ={
   avgCookies: 3.7,
   customer: '',
   cookiesSold: '',
+  stats:[],
   render: function(){
     for (var i = 0; i < hours.length; i++){
       var min = this.min;
@@ -113,12 +131,17 @@ var seaCtr ={
       console.log('avgCookies = ' + avgCookies);
       var cookiesPerHour = this.customer*avgCookies;
       console.log('this is a cookies per hour sale '+cookiesPerHour);
+      this.stats.push(Math.round(cookiesPerHour));
       this.cookiesSold = cookiesPerHour;
       console.log('this is cookies sold per hour '+ this.cookiesSold);
       var liEl = document.createElement('li');
       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
       seaCtrUl.appendChild(liEl);
   }
+  var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+  console.log('sea ctr reduce gets '+sum);
+  var tot = document.createElement('li');
+  tot.textContent = `Total: ${Math.round(sum)} cookies`; seaCtrUl.appendChild(tot);
 },
 }
 
@@ -130,6 +153,7 @@ var capHill ={
   avgCookies: 2.3,
   customer: '',
   cookiesSold: '',
+  stats:[],
   render: function(){
     for (var i = 0; i < hours.length; i++){
       var min = this.min;
@@ -144,12 +168,18 @@ var capHill ={
       console.log('avgCookies = ' + avgCookies);
       var cookiesPerHour = this.customer*avgCookies;
       console.log('this is a cookies per hour sale '+cookiesPerHour);
+      this.stats.push(Math.round(cookiesPerHour));
       this.cookiesSold = cookiesPerHour;
       console.log('this is cookies sold per hour '+ this.cookiesSold);
       var liEl = document.createElement('li');
       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
       capHillUl.appendChild(liEl);
   }
+  var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+  console.log('cap hill reduce gets '+sum);
+  var tot = document.createElement('li');
+  tot.textContent = `Total: ${Math.round(sum)} cookies`;
+  capHillUl.appendChild(tot);
 },
 }
 
@@ -160,6 +190,7 @@ var alki ={
   avgCookies: 4.6,
   customer: '',
   cookiesSold: '',
+  stats:[],
   render: function(){
     for (var i = 0; i < hours.length; i++){
       var min = this.min;
@@ -174,12 +205,18 @@ var alki ={
       console.log('avgCookies = ' + avgCookies);
       var cookiesPerHour = this.customer*avgCookies;
       console.log('this is a cookies per hour sale '+cookiesPerHour);
+      this.stats.push(Math.round(cookiesPerHour));
       this.cookiesSold = cookiesPerHour;
       console.log('this is cookies sold per hour '+ this.cookiesSold);
       var liEl = document.createElement('li');
       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
       alkiUl.appendChild(liEl);
   }
+  var sum =this.stats.reduce(function(a,b){return a+b;},0);
+  console.log('alki reduce gets '+ sum)
+  var tot = document.createElement('li');
+  tot.textContent = `Total: ${Math.round(sum)} cookies`;
+  alkiUl.appendChild(tot);
 },
 }
 pike.render();

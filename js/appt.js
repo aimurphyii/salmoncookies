@@ -69,8 +69,12 @@ seaCtr.render();
 capHill.render();
 alki.render();
 
-
-
+// totals
+// var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+// console.log('reduce gets '+sum);
+// var tot = document.createElement('li');
+// tot.textContent = `Total: ${Math.round(sum)} cookies`;
+// seaTacUl.appendChild(tot);
 
 // playing with tables
 var timeRow = document.getElementById('time');
