@@ -19,10 +19,10 @@ var hours = [
 // SHOPS
 
 var pikeTr = document.getElementById('pike');
-var seatacUl = document.getElementById('seatac');
-var seaCtrUL = document.getElementById('seaCtr');
-var capHillUl = document.getElementById('capHill');
-var alkiUl = document.getElementById('alki');
+var seaTacTr = document.getElementById('seatac');
+var seaCtrTr = document.getElementById('seaCtr');
+var capHillTr = document.getElementById('capHill');
+var alkiTr = document.getElementById('alki');
 
 
 // try this a different way
@@ -59,10 +59,10 @@ console.log('the total cookies per hour array for ' +name+' is '+this.stats);
 }
 
 var pike = new ShopStats('1st and Pike', 23, 65, 6.3, pikeTr);
-var seaTac = new ShopStats('SeaTac Airport', 3, 24, 1.2, seatacUl);
-var seaCtr = new ShopStats('Seattle Center', 11, 38, 3.7, seaCtrUL);
-var capHill = new ShopStats('Capitol Hill', 20, 38, 2.3, capHillUl);
-var alki = new ShopStats('Alki Beach', 2, 16, 4.6, alkiUl);
+var seaTac = new ShopStats('SeaTac Airport', 3, 24, 1.2, seaTacTr);
+var seaCtr = new ShopStats('Seattle Center', 11, 38, 3.7, seaCtrTr);
+var capHill = new ShopStats('Capitol Hill', 20, 38, 2.3, capHillTr);
+var alki = new ShopStats('Alki Beach', 2, 16, 4.6, alkiTr);
 pike.render();
 seaTac.render();
 seaCtr.render();
@@ -82,19 +82,46 @@ var timeRow = document.getElementById('time');
 // console.log('hours', shopHours);
 
 for (var j = 0; j < hours.length; j++){
-  var tabDat = document.createElement('td');
+  var tabDat = document.createElement('th');
   tabDat.innerHTML = hours[j];
   timeRow.appendChild(tabDat);
 }
 
 // for pike
 for (var i = 0; i < hours.length; i++){
-var tables = document.createElement('td');
+  var tables = document.createElement('td');
 tables.innerHTML = (Math.round(pike.stats[i]));
 pikeTr.appendChild(tables);
 }
 
 // for seatac
+for (var i = 0; i < hours.length; i++){
+  var tables = document.createElement('td');
+  tables.innerHTML = (Math.round(seaTac.stats[i]));
+  seaTacTr.appendChild(tables);
+  }
+
+// for Seattle Center
+for (var i = 0; i < hours.length; i++){
+  var tables2 = document.createElement('td');
+  tables2.innerHTML = (Math.round(seaCtr.stats[i]));
+  seaCtrTr.appendChild(tables2);
+  }
+// for Cap Hill
+
+for (var i = 0; i < hours.length; i++){
+  var tables = document.createElement('td');
+  tables.innerHTML = (Math.round(capHill.stats[i]));
+  capHillTr.appendChild(tables);
+  }
+
+// for Alki
+
+for (var i = 0; i < hours.length; i++){
+  var tables = document.createElement('td');
+  tables.innerHTML = (Math.round(alki.stats[i]));
+  alkiTr.appendChild(tables);
+  }
 
 // var table = document.getElementById('shell');
 // var data = [];
