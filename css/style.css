@@ -1,10 +1,11 @@
 body {
-  background:white;
+  background: #BBBE64;
   font-family: 'Courier New', Courier, monospace;
-  color: black;
-  text-align: left;
-  width: 80%;
-  margin-left: 10%;
+  font-size: 16px;
+  color: #3E4E50;
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
 }
 /* link colors */
 a {
@@ -19,6 +20,42 @@ body a:hover{
   text-decoration: overline;
   background-color: red;
 }
+
+h1{
+  font-size: 22px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: 15px;
+}
+
+h2{
+  font-size: 18px;
+}
+
+/* tables */
+table {
+  width:80%;
+  font-size: 14px;
+  padding: 5px;
+  border: none;
+  align-content: center;
+}
+table th, #topleft{
+  padding: 5px;
+  background-color: #F2AA7E;
+  font-weight: bolder;
+}
+table td{
+  padding-left: 4px;
+  background-color: rgba(250, 206, 173, 0.699); 
+}
 #salmon{
   width: 50%;
+  padding: 10px;
+  margin: 20px;
+}
+
+/* for lists */
+li{
+  list-style: none;
 }

@@ -35,9 +35,9 @@ function ShopStats(name, min, max, avgCookies,list){
   this.avgCookies = avgCookies;
   this.list = list;
   this.stats = [];
-  this.tables = '';
+  this.sums = [];
   this.render = function(){
-  for (var i = 0; i < hours.length; i++){
+  for (var i = 0; i < hours.length-1; i++){
     var min = this.min;
     var max = this.max;
     console.log('min = ' + min);
@@ -58,6 +58,7 @@ function ShopStats(name, min, max, avgCookies,list){
     this.list.appendChild(tables);
 }
 var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+this.sums.push(sum);
 var tot = document.createElement('td');
 tot.textContent = Math.round(sum);
 this.list.appendChild(tot);
@@ -89,14 +90,26 @@ for (var j = 0; j < hours.length; j++){
 // hourly totals
 var totRow = document.getElementById('timeTot');
 
-for (var k = 0; k < hours.length; k++){
-var sixAM = [];
-sixAM.push(pike.stats[k], seaTac.stats[k], seaCtr.stats[k], capHill.stats[k],alki.stats[k]);
-
-var sum = sixAM.reduce(function(a, b) { return a + b; }, 0);
-var tot = document.createElement('td');
-tot.textContent = Math.round(sum);
-totRow.appendChild(tot);
+for (var k = 0; k < hours.length-1; k++){
+  var sixAM = [];
+  sixAM.push(pike.stats[k], seaTac.stats[k], seaCtr.stats[k], capHill.stats[k],alki.stats[k]);
+  var sum = sixAM.reduce(function(a, b) { return a + b; }, 0);var tot = document.createElement('td');
+  tot.textContent = Math.round(sum);
+  totRow.appendChild(tot);
 };
+console.log(pike.sums);
 console.log('6am gets ' +sixAM+' and the sum is '+sum);
-// make  a new arrray with all hourly totals
+
+// grand total
+
+var allTots=[];
+allTots.push(pike.sums, seaTac.sums, seaCtr.sums, capHill.sums, alki.sums);
+
+console.log('parseint'+allTots);
+var sums = parseInt(allTots[0])+parseInt(allTots[1])+parseInt(allTots[2])+parseInt(allTots[3])+parseInt(allTots[4]);
+
+console.log(sums);
+
+var grandTotal = document.createElement('td');
+grandTotal.textContent = sums;
+totRow.appendChild(grandTotal);
