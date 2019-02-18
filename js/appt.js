@@ -1,20 +1,21 @@
 'use strict'
 var hours = [
-  '6AM',
-  '7AM',
-  '8AM',
-  '9AM',
-  '10AM',
-  '11AM',
-  '12PM',
-  '1PM',
-  '2PM',
-  '3PM',
-  '4PM',
-  '5PM',
-  '6PM',
-  '7PM',
-  '8PM',
+  '6:00AM',
+  '7:00AM',
+  '8:00AM',
+  '9:00AM',
+  '10:00AM',
+  '11:00AM',
+  '12:00PM',
+  '1:00PM',
+  '2:00PM',
+  '3:00PM',
+  '4:00PM',
+  '5:00PM',
+  '6:00PM',
+  '7:00PM',
+  '8:00PM',
+  'Total'
 ];
 // SHOPS
 
@@ -52,9 +53,17 @@ function ShopStats(name, min, max, avgCookies,list){
     this.stats.push(Math.round(cookiesPerHour));
     this.cookiesSold = cookiesPerHour;
     console.log('this is cookies sold per hour '+ this.cookiesSold);
+    var tables = document.createElement('td');
+    tables.innerHTML = (Math.round(this.stats[i]));
+    this.list.appendChild(tables);
 
 }
-console.log('the total cookies per hour array for ' +name+' is '+this.stats);
+var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+var tot = document.createElement('td');
+tot.textContent = Math.round(sum);
+this.list.appendChild(tot);
+console.log('reduce for '+name+'gets '+sum);
+console.log('the total cookies per hour array for ' +name+' gets '+this.stats);
 }
 }
 
@@ -69,106 +78,27 @@ seaCtr.render();
 capHill.render();
 alki.render();
 
+// make  a new arrray with all hourly totals
+
 // totals
-// var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
-// console.log('reduce gets '+sum);
-// var tot = document.createElement('li');
-// tot.textContent = `Total: ${Math.round(sum)} cookies`;
-// seaTacUl.appendChild(tot);
+// var hourTots = [];
+// for (var i = 0; i < people.length; i++){
+//   hourTots.push()
+// }
 
 // playing with tables
 var timeRow = document.getElementById('time');
-// for (var i = 0; i < hours.length; i++){
-//   shopHours.push(
-//   '<th>' + hours[i] +'</th>'
-//  )
-// }
-// console.log('hours', shopHours);
 
 for (var j = 0; j < hours.length; j++){
   var tabDat = document.createElement('th');
   tabDat.innerHTML = hours[j];
   timeRow.appendChild(tabDat);
 }
+// playing with tables
+var totRow = document.getElementById('timeTot');
 
-// for pike
-for (var i = 0; i < hours.length; i++){
-  var tables = document.createElement('td');
-tables.innerHTML = (Math.round(pike.stats[i]));
-pikeTr.appendChild(tables);
+for (var j = 0; j < hourTots.length; j++){
+  var tabDat = document.createElement('th');
+  tabDat.innerHTML = hourTots[j];
+  totRow.appendChild(tabDat);
 }
-
-// for seatac
-for (var i = 0; i < hours.length; i++){
-  var tables = document.createElement('td');
-  tables.innerHTML = (Math.round(seaTac.stats[i]));
-  seaTacTr.appendChild(tables);
-  }
-
-// for Seattle Center
-for (var i = 0; i < hours.length; i++){
-  var tables2 = document.createElement('td');
-  tables2.innerHTML = (Math.round(seaCtr.stats[i]));
-  seaCtrTr.appendChild(tables2);
-  }
-// for Cap Hill
-
-for (var i = 0; i < hours.length; i++){
-  var tables = document.createElement('td');
-  tables.innerHTML = (Math.round(capHill.stats[i]));
-  capHillTr.appendChild(tables);
-  }
-
-// for Alki
-
-for (var i = 0; i < hours.length; i++){
-  var tables = document.createElement('td');
-  tables.innerHTML = (Math.round(alki.stats[i]));
-  alkiTr.appendChild(tables);
-  }
-
-// var table = document.getElementById('shell');
-// var data = [];
-
-
-// for (var i = 0; i < this.stats.length; i++){
-//   data.push(
-//   '<td>' + people[i].name + '</td>' + '<td>' + people[i].age + '</td>' + '<td>' + people[i].profession + '</td>'
-//  )
-// }
-// console.log('my data array', data);
-
-// for (var j = 0; j < data.length; j++){
-//   var newRow = document.createElement('tr');
-//   newRow.innerHTML = data[j];
-//   table.appendChild(newRow);
-// }
-
-// var pike ={
-//   name: '1st and Pike',
-//   min: 23,
-//   max: 65,
-//   avgCookies: 6.3,
-//   customer: '',
-//   cookiesSold: '',
-//   render: function(){
-//     for (var i = 0; i < hours.length; i++){
-//       var min = this.min;
-//       var max = this.max;
-//       console.log('min = ' + min);
-//       console.log('max = '+ max);
-//       var random = Math.floor(Math.random() * (max - min + 1) ) + min;
-//       console.log ('random is '+random);
-//       this.customer = random;
-//       console.log ('this is customer '+this.customer);
-//       var avgCookies = this.avgCookies;
-//       console.log('avgCookies = ' + avgCookies);
-//       var cookiesPerHour = this.customer*avgCookies;
-//       console.log('this is a cookies per hour sale '+cookiesPerHour);
-//       this.cookiesSold = cookiesPerHour;
-//       console.log('this is cookies sold per hour '+ this.cookiesSold);
-      
-//       var liEl = document.createElement('li');
-//       liEl.textContent = `${hours[i]}: ${Math.round(this.cookiesSold)} cookies`;
-//       pikeUl.appendChild(liEl);
-//   }
