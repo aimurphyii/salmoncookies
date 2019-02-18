@@ -56,7 +56,6 @@ function ShopStats(name, min, max, avgCookies,list){
     var tables = document.createElement('td');
     tables.innerHTML = (Math.round(this.stats[i]));
     this.list.appendChild(tables);
-
 }
 var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
 var tot = document.createElement('td');
@@ -78,27 +77,26 @@ seaCtr.render();
 capHill.render();
 alki.render();
 
-// make  a new arrray with all hourly totals
-
-// totals
-// var hourTots = [];
-// for (var i = 0; i < people.length; i++){
-//   hourTots.push()
-// }
-
-// playing with tables
+// time header
 var timeRow = document.getElementById('time');
 
 for (var j = 0; j < hours.length; j++){
   var tabDat = document.createElement('th');
   tabDat.innerHTML = hours[j];
   timeRow.appendChild(tabDat);
-}
-// playing with tables
+};
+
+// hourly totals
 var totRow = document.getElementById('timeTot');
 
-for (var j = 0; j < hourTots.length; j++){
-  var tabDat = document.createElement('th');
-  tabDat.innerHTML = hourTots[j];
-  totRow.appendChild(tabDat);
-}
+for (var k = 0; k < hours.length; k++){
+var sixAM = [];
+sixAM.push(pike.stats[k], seaTac.stats[k], seaCtr.stats[k], capHill.stats[k],alki.stats[k]);
+
+var sum = sixAM.reduce(function(a, b) { return a + b; }, 0);
+var tot = document.createElement('td');
+tot.textContent = Math.round(sum);
+totRow.appendChild(tot);
+};
+console.log('6am gets ' +sixAM+' and the sum is '+sum);
+// make  a new arrray with all hourly totals
