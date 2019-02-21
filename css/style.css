@@ -55,6 +55,16 @@ table td{
   margin: 20px;
 }
 
+/* for forms */
+
+div {
+  background-color: rgba(62, 78, 80, 0.4);
+  font-size: 14px;
+  font-weight: bold;
+  margin: 15px;
+  padding: 8px;
+}
+
 /* for lists */
 li{
   list-style: none;
