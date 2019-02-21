@@ -62,6 +62,6 @@ function renderAllComments(){
 
 }
 
-// step 2 add evenet listend then call handle
+// step 2 add event listener then call handle
 
 chatForm.addEventListener('submit', handleCommentSubmitPlz);

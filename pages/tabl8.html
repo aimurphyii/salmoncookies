@@ -12,8 +12,9 @@
     <img id="salmon" src="../img/salmon.png"
     alt="yum yum yum"/>
     <h1>Cookie-Stand Sales</h1>
-    <table id="shops">
-      <tr id="time">
+    <table id="patscookies">
+      <tbody id="shops">
+      <!-- <tr id="time">
         <td id="topleft"></td>
       </tr>
       <tr id="pike">
@@ -33,25 +34,35 @@
       </tr>
       <tr id="timeTot">
         <th>Hourly Totals</th>
-      </tr>
+      </tr> -->
+    </tbody>
     </table>
 
-    <form>
+<!-- New things here -->
+    <div id="formfield">
+    <form id="createShop">
         <fieldset>
           <legend>Update Shops List</legend>
           <!-- new inputs: name, min max, avg cookies -->
-          <label for="shopName">Shop Location</label>
+
+          <label for="shopName">Shop Location:</label>
           <input for="shopName" type="text" />
    
-          <label for="minPpl">Customers per hour (max)</label>
+          <label for="minPpl">Customers per hour (min:)</label>
           <input for="minPpl" type="text" />
    
-          <label for="">Maximum Number of Customers</label>
-   
-   
+          <label for="maxPpl">Customers per hour (max):</label>
+          <input for="maxPpl" type="text" />
+
+          <label for="avgCookies">Average cookies sold per hour:</label>
+          <input for="avgCookies" type="text" />
+
+          <button type="submit">Add new shop!</button>
         </fieldset>
       </form>
-      
-    <script src="../js/appt.js"></script>
+
+    </div>
+
+    <script src="../js/appl8b.js"></script>
   </body>
 </html>
