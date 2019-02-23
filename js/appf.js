@@ -1,4 +1,5 @@
 'use strict'
+// these are the hours of operation that I'm going ot be looping through to get hourly sales
 var hours = [
   '6:00AM',
   '7:00AM',
@@ -18,7 +19,7 @@ var hours = [
   'Total'
 ];
 
-/** This is the collection of data for the shops */
+/** This is the collection of data for ALL the shops, new and old alike. This will be used to neatly extract the data to make unfied total row element*/
 var data = [];
 
 // SHOPS
@@ -29,7 +30,7 @@ var capHillTr = document.getElementById('capHill');
 var alkiTr = document.getElementById('alki');
 var domTable = document.getElementById('shops');
 
-// try this a different way
+// This is a constructor function that the original shops above run through
 
 function ShopStats(name, min, max, avgCookies, list) {
   this.name = name;
@@ -40,13 +41,13 @@ function ShopStats(name, min, max, avgCookies, list) {
   this.stats = [];
   this.sums = [];
 
-  // Create a data object
+  // Create a data object to cache to global array var data
   var currentData = {};
 
-  // Set the name on the data object
+  // Set the name on the data object, this is current data because it is inside of the loop and will tell which object we are looing through... which "store".
   currentData.location = name;
 
-  // Create a sales object to contain the sales data. We'll fill it in below
+  // Create a sales object to contain the sales data. We'll fill it in below. This catches AN instance of the sales per hour
   currentData.sales = {};
 
   this.render = function () {
