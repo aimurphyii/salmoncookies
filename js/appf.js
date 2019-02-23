@@ -17,9 +17,11 @@ var hours = [
   '8:00PM',
   'Total'
 ];
+
+/** This is the collection of data for the shops */
+var data = [];
+
 // SHOPS
-
-
 var pikeTr = document.getElementById('pike');
 var seaTacTr = document.getElementById('seatac');
 var seaCtrTr = document.getElementById('seaCtr');
@@ -29,7 +31,7 @@ var domTable = document.getElementById('shops');
 
 // try this a different way
 
-function ShopStats(name, min, max, avgCookies,list){
+function ShopStats(name, min, max, avgCookies, list) {
   this.name = name;
   this.min = min;
   this.max = max;
@@ -37,36 +39,45 @@ function ShopStats(name, min, max, avgCookies,list){
   this.list = list;
   this.stats = [];
   this.sums = [];
-  this.render = function(){
-  for (var i = 0; i < hours.length-1; i++){
-    var min = this.min;
-    var max = this.max;
-    console.log('min = ' + min);
-    console.log('max = '+ max);
-    var random = Math.floor(Math.random() * (max - min + 1) ) + min;
-    console.log ('random is '+random);
-    this.customer = random;
-    console.log ('this is customer '+this.customer);
-    var avgCookies = this.avgCookies;
-    console.log('avgCookies = ' + avgCookies);
-    var cookiesPerHour = this.customer*avgCookies;
-    console.log('this is a cookies per hour sale '+cookiesPerHour);
-    this.stats.push(Math.round(cookiesPerHour));
-    this.cookiesSold = cookiesPerHour;
-    console.log('this is cookies sold per hour '+ this.cookiesSold);
-    var tables = document.createElement('td');
-    tables.innerHTML = (Math.round(this.stats[i]));
-    this.list.appendChild(tables);
-    // think about appending to table instead of to dom.
-  }
-  var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
-  this.sums.push(sum);
-  var tot = document.createElement('td');
-  tot.textContent = Math.round(sum);
-  this.list.appendChild(tot);
-  domTable.appendChild(this.list);
-  console.log('reduce for '+name+'gets '+sum);
-  console.log('the total cookies per hour array for ' +name+' gets '+this.stats);
+
+  // Create a data object
+  var currentData = {};
+
+  // Set the name on the data object
+  currentData.location = name;
+
+  // Create a sales object to contain the sales data. We'll fill it in below
+  currentData.sales = {};
+
+  this.render = function () {
+    for (var i = 0; i < hours.length - 1; i++) {
+      var min = this.min;
+      var max = this.max;
+      var random = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      this.customer = random;
+      var avgCookies = this.avgCookies;
+      var cookiesPerHour = this.customer * avgCookies;
+      this.stats.push(Math.round(cookiesPerHour));
+      this.cookiesSold = cookiesPerHour;
+
+      // For each hour, save the cookies per hour where the property is the hour and the value is the cookies per hour
+      currentData.sales[hours[i]] = cookiesPerHour;
+
+      var tables = document.createElement('td');
+      tables.innerHTML = (Math.round(this.stats[i]));
+      this.list.appendChild(tables);
+      // think about appending to table instead of to dom.
+    }
+    var sum = this.stats.reduce(function (a, b) { return a + b; }, 0);
+    this.sums.push(sum);
+    var tot = document.createElement('td');
+    tot.textContent = Math.round(sum);
+    this.list.appendChild(tot);
+    domTable.appendChild(this.list);
+
+    // Add the current data to the global data object
+    data.push(currentData);
   }
 }
 
@@ -74,8 +85,8 @@ function ShopStats(name, min, max, avgCookies,list){
 
 // make this whole thing one function
 var timeRow = document.getElementById('time');
-  // put the td from above locations into this 
-for (var j = 0; j < hours.length; j++){
+// put the td from above locations into this 
+for (var j = 0; j < hours.length; j++) {
 
   var tabDat = document.createElement('th');
   tabDat.innerHTML = hours[j];
@@ -99,61 +110,67 @@ alki.render();
 
 
 
-// make the new stores
-
+// need to fix totals
 
 // hourly totals
-var totRow = document.getElementById('timeTot');
+function callTotal() {
+  var totRow = document.getElementById('timeTot');
 
-for (var k = 0; k < hours.length-1; k++){
-  var sixAM = [];
-  sixAM.push(pike.stats[k], seaTac.stats[k], seaCtr.stats[k], capHill.stats[k],alki.stats[k]);
-  var sum = sixAM.reduce(function(a, b) { return a + b; }, 0);var tot = document.createElement('td');
-  tot.textContent = Math.round(sum);
-  totRow.appendChild(tot);
-  domTable.appendChild(totRow);
-};
-console.log(pike.sums);
-console.log('6am gets ' +sixAM+' and the sum is '+sum);
+  // Make sure our row is empty
+  while (totRow.lastChild) {
+    totRow.removeChild(totRow.lastChild);
+  }
+
+  var totLabel = document.createElement('th');
+  totLabel.textContent = 'Hourly Totals';
+  totRow.appendChild(totLabel);
+
+  var grandTotal = 0;
+
+  for (var k = 0; k < hours.length - 1; k++) {
+
+    var currentHour = hours[k]; // e.g. "8:00AM";
+    var currentHourSales = [];
+
+    for (var l = 0; l < data.length; l++) {
+      var currentStore = data[l];
+      currentHourSales.push(currentStore.sales[currentHour]);
+    }
+
+    // currentHourSales.push(pike.stats[k], seaTac.stats[k], seaCtr.stats[k], capHill.stats[k], alki.stats[k]);
+
+    var sum = currentHourSales.reduce(function (a, b) { return a + b; }, 0);
+    grandTotal += sum;
+
+    var tot = document.createElement('td');
+    tot.textContent = Math.round(sum);
+    totRow.appendChild(tot);
+    domTable.appendChild(totRow);
+  }
+  //var allTots = [];
+  //allTots.push(pike.sums, seaTac.sums, seaCtr.sums, capHill.sums, alki.sums);
+
+  //console.log('parseint' + allTots);
+  //var sums = parseInt(allTots[0]) + parseInt(allTots[1]) + parseInt(allTots[2]) + parseInt(allTots[3]) + parseInt(allTots[4]);
+
+  //console.log(sums);
+
+  var grandTotalElement = document.createElement('td');
+  grandTotalElement.textContent = Math.round(grandTotal);
+  totRow.appendChild(grandTotalElement);
+}
 
 
-
-// grand total
-
-var allTots=[];
-allTots.push(pike.sums, seaTac.sums, seaCtr.sums, capHill.sums, alki.sums);
-
-console.log('parseint'+allTots);
-var sums = parseInt(allTots[0])+parseInt(allTots[1])+parseInt(allTots[2])+parseInt(allTots[3])+parseInt(allTots[4]);
-
-console.log(sums);
-
-var grandTotal = document.createElement('td');
-grandTotal.textContent = sums;
-totRow.appendChild(grandTotal);
-
-// **************************// **************************// **************************// **************************// **************************// **************************// **************************// **************************// **************************// **************************
-
-// test forms
-
-'use strict';
-
-// var myElement = document.getElementById('mydiv');
-
-// myElement.addEventListener('click', function(){
-//   console.log('i got clicked!')  
-// });
+//NEW STORES!
 
 
 // cache chat from DOM
-var chatList = document.getElementById('chat-list');
-var chatForm = document.getElementById('sweetness');
-
-var allShops = [];
+var nextshopList = document.getElementById('nextshop');
+var shopForm = document.getElementById('sweetness');
 
 
 // step 5 takes params and creates an obj.. comment obj
-var CookieStand = function(name, min, max, avgCookies){
+var CookieStand = function (name, min, max, avgCookies) {
   this.name = name;
   this.min = parseInt(min);
   this.max = parseInt(max);
@@ -161,52 +178,92 @@ var CookieStand = function(name, min, max, avgCookies){
 };
 
 
-CookieStand.prototype.render = function(){
+CookieStand.prototype.render = function () {
+
+  // Add data to the global data variable
+  // Create a data object
+  var currentData = {};
+
+  // Set the name on the data object
+  currentData.location = this.name;
+
+  // Create a sales object to contain the sales data. We'll fill it in below
+  currentData.sales = {};
+
+
   var newRow = document.createElement('tr');
-  newRow.innerHTML = '<tr id="'+this.name+'"></tr>';
+  newRow.innerHTML = '<tr id="' + this.name + '"></tr>';
+  domTable.appendChild(newRow);
+  var shopName = document.createElement('th');
+  shopName.innerHTML = this.name;
+  newRow.appendChild(shopName);
   // var list = document.getElementById(this.name);
   console.log(this.name);
   // this.list = list;
-  console.log('newRow gets '+newRow);
+  console.log('newRow gets ' + newRow);
   // console.log('list gets'+list);
   var stats = [];
   this.stats = stats;
   var sums = [];
   this.sums = sums;
-  for (var i = 0; i < hours.length-1; i++){
+  for (var i = 0; i < hours.length - 1; i++) {
     var min = this.min;
     var max = this.max;
     console.log('min = ' + min);
-    console.log('max = '+ max);
-    var random = Math.floor(Math.random() * (max - min + 1) ) + min;
-    console.log ('random is '+random);
+    console.log('max = ' + max);
+    var random = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log('random is ' + random);
     this.customer = random;
-    console.log ('this is customer '+this.customer);
+    console.log('this is customer ' + this.customer);
     var avgCookies = this.avgCookies;
     console.log('avgCookies = ' + avgCookies);
-    var cookiesPerHour = this.customer*avgCookies;
-    console.log('this is a cookies per hour sale '+cookiesPerHour);
+    var cookiesPerHour = this.customer * avgCookies;
+    console.log('this is a cookies per hour sale ' + cookiesPerHour);
     this.stats.push(Math.round(cookiesPerHour));
+
+    // For each hour, save the cookies per hour where the property is the hour and the value is the cookies per hour
+    currentData.sales[hours[i]] = cookiesPerHour;
+
+
     this.cookiesSold = cookiesPerHour;
-    console.log('this is cookies sold per hour '+ this.cookiesSold);
+    console.log('this is cookies sold per hour ' + this.cookiesSold);
     var tables = document.createElement('td');
     tables.innerHTML = (Math.round(this.stats[i]));
     newRow.appendChild(tables);
     domTable.appendChild(newRow);
     // appended to table, .
   }
-  var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
+  var sum = this.stats.reduce(function (a, b) { return a + b; }, 0);
   this.sums.push(sum);
   var tot = document.createElement('td');
   tot.textContent = Math.round(sum);
   newRow.appendChild(tot);
-  console.log('reduce for '+name+'gets '+sum);
-  console.log('the total cookies per hour array for ' +name+' gets '+this.stats);
+  console.log('reduce for ' + this.name + 'gets ' + sum);
+  console.log('the total cookies per hour array for ' + this.name + ' gets ' + this.stats);
+
+  // Add the current data to the global data object
+  data.push(currentData);
+
+  console.log(data);
+
+  // To get the data for the first shop in the array
+  var shop = data[0];
+
+  // To get the name of the location
+  var shopName = shop.location; // data[0].location
+
+  // To get the sales object
+  var sales = shop.sales; // data[0].sales
+
+  // To the get sales for 8 AM
+  var eightAmSales = shop.sales["8:00AM"]; // data[0].sales["8:00AM"];
 }
+var allShops = [];
 
 
-// step 3 looks at event 
-function newShopHandler(event){
+// step 3 looks at event
+// This guy should understand how to create a new shop, render it on the page, and update the totals
+function newShopHandler(event) {
   event.preventDefault();
   // console.log(event);
   // console.log(event.target.who);
@@ -219,31 +276,45 @@ function newShopHandler(event){
   var max = event.target.max.value;
   var avgCookies = event.target.avg.value;
 
-  var newShop = new CookieStand (name, min, max, avgCookies);
-// step 6 ref inpputs and clear out 
+  // Create a new shop
+  var newShop = new CookieStand(name, min, max, avgCookies);
+
+  // step 6 ref inputs and clear out 
   event.target.where.value = null;
   event.target.min.value = null;
   event.target.max.value = null;
   event.target.avg.value = null;
 
+  // Render the new shop on the page
+  newShop.render();
+
+  // Re-render the totals
+  callTotal();
+
   // 7 now run values into prototype!.. stored new value to array, need to call the array value through 
-  allShops.push(newShop);
-  console.log('all shops gets '+allShops);
+  //allShops.push(newShop);
+
   // Last step...now call it here
-  renderNewShops();
+  //renderNewShops();
 }
 
 // stick it to the DOM
-function renderNewShops(){
+function renderNewShops() {
   // get rid of existing comments first
-  // chatList.textContent = '';
-// now put the new list itmes from the array into it.
-  for(var i = 0; i < allShops.length; i++){
-    domTable.appendChild(allShops[i].render());
-}
+  // nextshopList.textContent = '';
+  // now put the new list itmes from the array into it.
+  for (var i = 0; i < allShops.length; i++) {
+    allShops[i].render();
+    //domTable.appendChild(allShops[i].render());
+  }
 
 }
 
 // step 2 add event listener then call handle
 
-chatForm.addEventListener('submit', newShopHandler);
+shopForm.addEventListener('submit', newShopHandler);
+
+// Render the totals for the first time
+callTotal();
+
+console.log(data);
