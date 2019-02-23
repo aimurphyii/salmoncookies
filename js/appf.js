@@ -99,27 +99,23 @@ alki.render();
 
 
 
-// make the new stores
-
+// need to fix totals
 
 // hourly totals
+function callTotal(){
 var totRow = document.getElementById('timeTot');
-
+var totLabel = document.createElement('th');
+totLabel.textContent='Hourly Totals';
+totRow.appendChild(totLabel);
 for (var k = 0; k < hours.length-1; k++){
   var sixAM = [];
   sixAM.push(pike.stats[k], seaTac.stats[k], seaCtr.stats[k], capHill.stats[k],alki.stats[k]);
-  var sum = sixAM.reduce(function(a, b) { return a + b; }, 0);var tot = document.createElement('td');
+  var sum = sixAM.reduce(function(a, b) { return a + b; }, 0);
+  var tot = document.createElement('td');
   tot.textContent = Math.round(sum);
   totRow.appendChild(tot);
   domTable.appendChild(totRow);
-};
-console.log(pike.sums);
-console.log('6am gets ' +sixAM+' and the sum is '+sum);
-
-
-
-// grand total
-
+}
 var allTots=[];
 allTots.push(pike.sums, seaTac.sums, seaCtr.sums, capHill.sums, alki.sums);
 
@@ -131,25 +127,15 @@ console.log(sums);
 var grandTotal = document.createElement('td');
 grandTotal.textContent = sums;
 totRow.appendChild(grandTotal);
+}
 
-// **************************// **************************// **************************// **************************// **************************// **************************// **************************// **************************// **************************// **************************
 
-// test forms
-
-'use strict';
-
-// var myElement = document.getElementById('mydiv');
-
-// myElement.addEventListener('click', function(){
-//   console.log('i got clicked!')  
-// });
+//NEW STORES!
 
 
 // cache chat from DOM
-var chatList = document.getElementById('chat-list');
-var chatForm = document.getElementById('sweetness');
-
-var allShops = [];
+var nextshopList = document.getElementById('nextshop');
+var shopForm = document.getElementById('sweetness');
 
 
 // step 5 takes params and creates an obj.. comment obj
@@ -164,6 +150,10 @@ var CookieStand = function(name, min, max, avgCookies){
 CookieStand.prototype.render = function(){
   var newRow = document.createElement('tr');
   newRow.innerHTML = '<tr id="'+this.name+'"></tr>';
+  domTable.appendChild(newRow);
+  var shopName = document.createElement('th');
+  shopName.innerHTML = this.name;
+  newRow.appendChild(shopName);
   // var list = document.getElementById(this.name);
   console.log(this.name);
   // this.list = list;
@@ -200,9 +190,10 @@ CookieStand.prototype.render = function(){
   var tot = document.createElement('td');
   tot.textContent = Math.round(sum);
   newRow.appendChild(tot);
-  console.log('reduce for '+name+'gets '+sum);
-  console.log('the total cookies per hour array for ' +name+' gets '+this.stats);
+  console.log('reduce for '+this.name+'gets '+sum);
+  console.log('the total cookies per hour array for ' +this.name+' gets '+this.stats);
 }
+var allShops = [];
 
 
 // step 3 looks at event 
@@ -228,15 +219,15 @@ function newShopHandler(event){
 
   // 7 now run values into prototype!.. stored new value to array, need to call the array value through 
   allShops.push(newShop);
-  console.log('all shops gets '+allShops);
+
   // Last step...now call it here
   renderNewShops();
 }
-
+console.log('all shops stats gets '+allShops.stats);
 // stick it to the DOM
 function renderNewShops(){
   // get rid of existing comments first
-  // chatList.textContent = '';
+  // nextshopList.textContent = '';
 // now put the new list itmes from the array into it.
   for(var i = 0; i < allShops.length; i++){
     domTable.appendChild(allShops[i].render());
@@ -246,4 +237,6 @@ function renderNewShops(){
 
 // step 2 add event listener then call handle
 
-chatForm.addEventListener('submit', newShopHandler);
+shopForm.addEventListener('submit', newShopHandler);
+
+callTotal();
