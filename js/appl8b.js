@@ -50,7 +50,7 @@ var ShopStats=function(name, min, max, avgCookies){
 
 }
 
-function ShopStats(name, min, max, avgCookies){
+ShopStats.prototype.render = function(){
   this.name = name;
   this.min = min;
   this.max = max;
@@ -58,7 +58,6 @@ function ShopStats(name, min, max, avgCookies){
   this.list = list;
   this.stats = [];
   this.sums = [];
-  this.render = function(){
   for (var i = 0; i < hours.length-1; i++){
     var min = this.min;
     var max = this.max;
@@ -83,7 +82,7 @@ function ShopStats(name, min, max, avgCookies){
   }
   var sum = this.stats.reduce(function(a, b) { return a + b; }, 0);
   this.sums.push(sum);
-  var tot = document.createElement('td');
+  var tot = document.createElement('tr');
   tot.textContent = Math.round(sum);
   this.list.appendChild(tot);
   console.log('reduce for '+name+'gets '+sum);
