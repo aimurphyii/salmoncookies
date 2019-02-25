@@ -1,0 +1,73 @@
+body {
+  background: rgba(221, 246, 252, 0.658);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #3E4E50;
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
+}
+/* link colors */
+/* a {
+  color:red;
+  text-decoration: none;
+}
+a:visited{
+  color:black;
+}
+body a:hover{
+  color: blue;
+  text-decoration: overline;
+  background-color: red;
+} */
+
+h1{
+  font-family: fantasy;
+  font-size: 22px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin: 15px;
+}
+
+h2{
+  font-family: fantasy;
+  font-size: 18px;
+}
+
+/* tables */
+table {
+  width:80%;
+  font-size: 14px;
+  padding: 5px;
+  border: none;
+  align-content: center;
+}
+table th, #topleft{
+  padding: 5px;
+  background-color: #F2AA7E;
+  font-weight: bolder;
+}
+table td{
+  padding-left: 4px;
+  background-color: rgba(250, 206, 173, 0.699); 
+}
+#salmon{
+  width: 50%;
+  padding: 10px;
+  margin: 20px;
+}
+
+/* for forms */
+
+form {
+  background-color: rgba(62, 78, 80, 0.4);
+  font-size: 14px;
+  font-weight: bold;
+  margin: 15px;
+  padding: 8px;
+}
+
+/* for lists */
+li{
+  list-style: none;
+}
