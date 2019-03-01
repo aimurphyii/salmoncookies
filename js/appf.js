@@ -266,10 +266,6 @@ var allShops = [];
 // This guy should understand how to create a new shop, render it on the page, and update the totals
 function newShopHandler(event) {
   event.preventDefault();
-  // console.log(event);
-  // console.log(event.target.who);
-  console.log(event.target.where.value);
-  console.log(event.target.min.value);
 
   // step 4 looks at and gives values
   var name = event.target.where.value;
